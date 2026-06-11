@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alcohol-verifier
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: verifier
+  template:
+    metadata:
+      labels:
+        app: verifier
+    spec:
+      containers:
+        - name: app
+          image: acr.azurecr.io/verifier:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: "2"
+              memory: "4Gi"

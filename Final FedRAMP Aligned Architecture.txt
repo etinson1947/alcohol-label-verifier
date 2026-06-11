@@ -1,0 +1,38 @@
+                   ┌──────────────────────────┐
+                   │ Entra ID Federation      │
+                   └──────────┬───────────────┘
+                              │
+                 ┌────────────▼────────────┐
+                 │ Front Door / Gateway    │
+                 └────────────┬────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+┌───────▼────────┐  ┌────────▼────────┐  ┌──────────▼─────────┐
+│ OCR Service     │  │ AI Fraud Engine │  │ Audit Ledger       │
+│ (PaddleOCR)     │  │ (Counterfeit ML)│  │ (Immutable Chain)  │
+└───────┬────────┘  └────────┬────────┘  └──────────┬─────────┘
+        │                    │                     │
+        └────────────┬───────┴─────────────┬──────┘
+                     ▼                     ▼
+           ┌────────────────────────────────────┐
+           │ TTB / COLA Rule Engine             │
+           │ Versioned Regulatory Evaluation    │
+           └──────────────┬─────────────────────┘
+                          ▼
+           ┌────────────────────────────────────┐
+           │ PostgreSQL Product Master          │
+           └──────────────┬─────────────────────┘
+                          ▼
+           ┌────────────────────────────────────┐
+           │ Reporting + Evidence + PDF Output  │
+           └────────────────────────────────────┘
+
+This final system architecture provides the following benefits:
+
+✔ Audit-ready (FedRAMP-aligned)
+✔ Multi-agency deployable
+✔ AI-enhanced compliance system
+✔ Fully container + Kubernetes ready
+✔ Regulation-driven architecture (not just code rules)
+✔ Evidence-generating system of record

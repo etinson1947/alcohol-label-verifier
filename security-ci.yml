@@ -1,0 +1,64 @@
+name: Secure Build Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install bandit safety
+
+      # Static security scan
+      - name: Run Bandit (SAST)
+        run: bandit -r .
+
+      # Dependency vulnerability scan
+      - name: Run Safety Check
+        run: safety check
+
+  container-scan:
+    runs-on: ubuntu-latest
+    needs: security-scan
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t verifier:latest .
+
+      - name: Scan container (Trivy)
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: verifier:latest
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+
+  deploy:
+    needs: container-scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure App Service
+        run: |
+          az webapp deploy \
+            --name alcohol-label-verifier-prod \
+            --resource-group rg-label \
+            --src-path .

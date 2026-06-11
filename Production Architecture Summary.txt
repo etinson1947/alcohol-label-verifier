@@ -1,0 +1,19 @@
+User Uploads Image
+        ↓
+React / Flask API Gateway
+        ↓
+Azure App Service (Python + Gunicorn)
+        ↓
+PaddleOCR (Local inference)
+        ↓
+TTB Rules Engine
+        ↓
+Product Master (PostgreSQL)
+        ↓
+Compliance Engine
+        ↓
+Azure Blob Storage (images)
+        ↓
+Application Insights (logs/metrics)
+        ↓
+PDF Report Generator

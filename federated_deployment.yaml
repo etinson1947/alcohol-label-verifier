@@ -1,0 +1,28 @@
+federation:
+  model: multi-agency
+
+agencies:
+
+  - name: TTB
+    region: us-east
+    data_classification: controlled
+
+  - name: Customs
+    region: us-west
+    data_classification: restricted
+
+  - name: StateAlcoholBoard
+    region: us-central
+    data_classification: regulated
+
+shared_services:
+
+  - audit_log_replication
+  - model_registry
+  - rule_engine_versioning
+
+data_governance:
+
+  encryption_at_rest: AES-256
+  encryption_in_transit: TLS1.3
+  cross_agency_sync: event-driven

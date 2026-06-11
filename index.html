@@ -1,0 +1,29 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alcohol Label Compliance System</title>
+</head>
+
+<body>
+
+<h2>Alcohol Label Compliance Verification</h2>
+
+<form action="/api/verify" method="post" enctype="multipart/form-data">
+
+    <label>SKU:</label>
+    <input type="text" name="sku" required>
+
+    <br><br>
+
+    <input type="file" name="files" multiple required>
+
+    <br><br>
+
+    <button type="submit">Verify Labels</button>
+
+</form>
+
+</body>
+</html>
+```

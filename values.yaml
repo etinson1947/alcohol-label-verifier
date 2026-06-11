@@ -1,0 +1,10 @@
+replicaCount: 5
+
+image:
+  repository: verifier
+  tag: latest
+
+resources:
+  limits:
+    cpu: "2"
+    memory: "4Gi"

@@ -1,0 +1,34 @@
+```yaml id="cicd1"
+name: Azure Deploy (Staging + Prod Slots)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to staging slot
+        run: |
+          az webapp deployment source config-zip \
+            --resource-group rg-label \
+            --name alcohol-label-verifier-prod \
+            --slot staging \
+            --src app.zip
+
+      - name: Swap slots
+        run: |
+          az webapp deployment slot swap \
+            --resource-group rg-label \
+            --name alcohol-label-verifier-prod \
+            --slot staging \
+            --target-slot production
+```
